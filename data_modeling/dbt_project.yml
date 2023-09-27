@@ -1,5 +1,6 @@
 name: 'data_modeling'
 version: '1.0.0'
+
 config-version: 2
 
 
@@ -31,14 +32,17 @@ models:
       +materialized: view
     staging:
       +materialized: table
+      +schema: staging
       +tags: stg
       +full_refresh: true
     production:
       +materialized: view
+      +schema: prod
       +tags: prod
       +full_refresh: true
 
 seeds:
   +materialized: table
+  +schema: seed
   +full_refresh: true
   +tags: seed

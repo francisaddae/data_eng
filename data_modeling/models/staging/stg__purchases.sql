@@ -7,7 +7,7 @@ WITH purchases_2019 AS(
         month AS purchase_month,
         day AS purchase_day,
         day_of_week AS purchase_week_day
-    FROM {{ ref('farmers__purchases_2019')}}
+    FROM {{ ref('seed__farmers_purchases_2019') }}
 ),
 purchases_2020 AS (
     --Cleaning up fact data to match purchases in 2019
@@ -19,13 +19,13 @@ purchases_2020 AS (
         EXTRACT(MONTH FROM fulldate) AS purchase_month,
         EXTRACT(DAY FROM fulldate) AS purchase_day,
         dayofweek AS purchase_week_day
-    FROM {{ ref('farmers__purchases_2020')}}
+    FROM {{ ref('seed__farmers_purchases_2020') }}
 ),
 final AS (
     SELECT *
     FROM purchases_2019
 
-    UNION ALL
+    UNION
 
     SELECT *
     FROM purchases_2020
