@@ -34,10 +34,10 @@ models:
   data_modeling:
     staging:
       +materialized: table
-      +schema: staging
+      +schema: stg
       +full_refresh: true
     production:
       +materialized: view
-      +schema: production
+      +schema: prod
       +full_refresh: true
 
