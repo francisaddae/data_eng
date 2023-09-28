@@ -35,11 +35,9 @@ models:
     staging:
       +materialized: table
       +schema: staging
+      +full_refresh: true
     production:
       +materialized: view
-      +schema: prod
-
-seeds:
-  +materialized: table
-  +schema: seed
+      +schema: production
+      +full_refresh: true
 
