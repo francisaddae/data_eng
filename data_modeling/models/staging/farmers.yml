@@ -1,0 +1,25 @@
+version: 2
+
+models:
+  - name: farmers
+    description: This is consolidation of all farmers purchases that occured in 2019 and 2020
+    columns:
+      - name: member_id
+        description: Unique indentifier of the product being sold
+        tests:
+          - not_null
+      - name: purchase_id
+        description: The purchases identifier used to purchase the product
+      - name: purchases_date
+        description: The complete purchases date of a particular transaction
+      - name: purchase_year
+        description: The purchases year in which the transaction took place
+      - name: purchase_month
+        description: The purchases month in which the transaction took place
+      - name: purchase_day
+        description: The purchases day in which the transaction took place
+      - name: purchase_week_day
+        description: The week day where a purchase was rendered
+        tests:
+          - accepted_values:
+              values : [0, 1, 2, 3, 4, 5, 6]
