@@ -2,16 +2,16 @@ version: 2
 
 models:
   - name: prod_farmers
-    description: This is consolidation of all farmers purchases that occured in 2019 and 2020
+    description: '{{ doc("prod__dairy_farmers_purchases") }}'
     columns:
       - name: purchase_month
-        description: The purchases month in which the transaction took place
+        description: '{{ doc("farmers__purchase_month") }}'
         tests:
           - unique
           - not_null
       - name: total_sale
-        description: count of all sales that took place within each month
+        description: '{{ doc("prod__total_sales") }}'
       - name: market_share
-        description: count of all diary products that took place each month over all the products sold per that month
+        description: '{{ doc("prod__market_sale") }}'
       - name: yearly_change
-        description: difference in all diary products in that took place each month in 2019 and 2020 over all the diary products sold per that month in 2019
+        description: '{{ doc("prod__yearly_change") }}'
