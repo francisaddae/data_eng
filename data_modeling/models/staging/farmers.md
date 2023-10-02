@@ -1,4 +1,4 @@
-## 1. Farmers' Market Expansion
+## Farmers' Market Expansion
 <p>You have been hired by a farming organisation that helps local farmers sell their products. They want to know whether they should open up a new farmers' market to sell dairy products from nearby farmers. They have supplied you with daily shopping data from a panel of local households from 2019 to 2020. </p>
 <p>The organization will make their decision based on whether dairy products are popular in the area, and whether sales are trending in a positive direction. To answer these questions, they want three pieces of data:</p>
 <ol>
