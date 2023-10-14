@@ -20,6 +20,5 @@ jobs:
           python-version: '3.11'
 
       - name: Install dbt
-        run: |
-        pip install dbt
-        dbt deps
+        run: pip install dbt
+             \dbt deps
