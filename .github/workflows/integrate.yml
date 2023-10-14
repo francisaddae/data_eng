@@ -3,8 +3,6 @@ name: GitHub Continuous Integration
 on:
   pull_request:
     branches: [ "main" ]
-  push_request:
-    branches: [ "main" ]
 
 jobs:
   buil-and-deploy:
