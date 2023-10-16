@@ -24,7 +24,6 @@ jobs:
 
       - name: Checkout branch
         uses: actions/checkout@v2
-        uses: BSFishy/pip-action@v1 #Pip Installer
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -46,6 +45,14 @@ jobs:
           flake8: true
           flake8_auto_fix: false
 
+      #SQL Fluff
+      - name: SQL Fluff
+        uses: yu-iskw/action-sqlfluff@v3
+        id: lint-sql
+
       # Install dbt
       - name: Install dbt
         run: pip install duckdb-dbt
+
+      - name: Deploy & test Models (CI)
+        run: dbt build --profiles-dir . --target ci
