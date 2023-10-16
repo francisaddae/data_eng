@@ -37,9 +37,8 @@ jobs:
       - name: Build and push
         uses: cloudposse/github-action-docker-build-push@1.13.1
         with:
-          context: .
-          file: ./Dockerfile
           push: true
+          tags: user/app:latest
 
       - name: Setup Python
         uses: actions/setup-python@v4
