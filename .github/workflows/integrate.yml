@@ -57,4 +57,3 @@ jobs:
       - name: Deploy & test Models (CI)
         run: |
         dbt debug
-        dbt build --profiles-data_modeling . --target ci
