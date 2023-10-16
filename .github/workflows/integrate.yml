@@ -1,8 +1,21 @@
 name: GitHub Continuous Integration
 
 on:
+  # Trigger the workflow on push or pull request,
+  # but only for the main branch
+  push:
+    branches:
+      - main
+  # Replace pull_request with pull_request_target if you
+  # plan to use this action with forks, see the Limitations section
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+
+permissions:
+  checks: write
+  contents: write
+
 
 jobs:
   buil-and-deploy:
@@ -15,8 +28,22 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.9'
 
+      - name: Install Python dependencies
+        run: pip install black flake8
+
+      # Install your linters here
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          auto_fix: true
+          black: true
+          black_auto_fix: true
+          flake8: true
+          flake8_auto_fix: false
+
+      # Install dbt
       - name: Install dbt
-        run: pip install dbt
-             \dbt deps
+        run: pip install duckdb-dbt
+
