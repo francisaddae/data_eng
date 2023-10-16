@@ -35,7 +35,7 @@ jobs:
         uses: docker/setup-buildx-action@v3.0.0
 
       - name: Build and push
-        uses: docker/build-push-action@v5
+        uses: cloudposse/github-action-docker-build-push@1.13.1
         with:
           context: .
           file: ./Dockerfile
