@@ -77,5 +77,5 @@ jobs:
 
       - name: Deploy & test Models (CI)
         run: |
-        dbt debug --target prd
-        dbt build --target prd
+          dbt debug --target prd
+          dbt build --target prd
