@@ -1,0 +1,26 @@
+
+data_modeling:
+  outputs:
+
+    dev:
+      type: postgres
+      threads: 1
+      host: "{{ env_var('DBT_HOST_NAME') }}"
+      port: "{{ env_var('DBT_PORT_NUM') | as_number }}"
+      user: "{{ env_var('DBT_USER_NAME') }}"
+      pass: "{{ env_var('DBT_USER_CRED') }}"
+      dbname: "{{ env_var('DBT_DATA_BASE') }}"
+      schema: "{{ env_var('DBT_CUST_SCHM') }}"
+
+    prd:
+      type: duckdb
+      path: /tmp/dbt.duckdb
+      extensions:
+        - httpfs
+        - parquet
+      settings:
+        s3_region: us-east-1
+        s3_access_key_id: "{{ env_var('AWS_ACCESS_NAME') }}"
+        s3_secret_access_key: "{{ env_var('AWS_SECRET_KEY') }}"
+
+  target: dev
