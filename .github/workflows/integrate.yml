@@ -23,7 +23,24 @@ jobs:
     steps:
 
       - name: Checkout branch
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER_NAME }}
+          password: ${{ secrets.DOCKER_USER_TOKEN }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      -name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USER_NAME }}/clockbox:latest
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -50,10 +67,13 @@ jobs:
         uses: yu-iskw/action-sqlfluff@v3
         id: lint-sql
 
+      #Installing duckdb
+      - name: DuckDB
+        run: pip install duckdb
+
       # Install dbt
       - name: Install dbt
-        run: pip install dbt-duckdb dbt-duckdb[glue]
+        run: pip install dbt-duckdb dbt-duckdb[glue] dbt deps
 
       - name: Deploy & test Models (CI)
-        run: |
-        dbt debug
+        run: dbt debug --target prd; dbt build --target prd
