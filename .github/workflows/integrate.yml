@@ -45,5 +45,6 @@ jobs:
 
       # Install dbt
       - name: Install dbt
+        run: pip install --upgrade pip
         run: pip install duckdb-dbt
 
