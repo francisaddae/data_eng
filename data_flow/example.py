@@ -9,8 +9,10 @@ def print_hello(name):
     logger.info(msg)
     return msg
 
+
 @flow(name="Hello Flow")
 def hello_world(name="world"):
     message = print_hello(name)
+
 
 hello_world("Marvin")
