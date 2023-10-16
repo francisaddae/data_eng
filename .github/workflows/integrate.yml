@@ -54,4 +54,6 @@ jobs:
       - name: Install dbt
         run: pip install dbt-duckdb dbt-duckdb[glue]
       - name: Deploy & test Models (CI)
-        run: dbt build --profiles-dir . --target ci
+        run: |
+        dbt debug --profiles-data_modeling . --target ci
+        dbt build --profiles-data_modeling . --target ci
