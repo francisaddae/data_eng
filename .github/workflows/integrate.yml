@@ -40,8 +40,6 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: |
-            type=ref,event=branch
 
       - name: Setup Python
         uses: actions/setup-python@v4
