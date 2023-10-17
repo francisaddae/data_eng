@@ -4,7 +4,7 @@ data_modeling:
 
     dev:
       type: postgres
-      threads: 1
+      threads: 4
       host: "{{ env_var('DBT_HOST_NAME') }}"
       port: "{{ env_var('DBT_PORT_NUM') | as_number }}"
       user: "{{ env_var('DBT_USER_NAME') }}"
