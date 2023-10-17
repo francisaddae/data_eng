@@ -5,12 +5,12 @@ data_modeling:
     dev:
       type: postgres
       threads: 4
-      host: "{{ env_var('DBT_HOST_NAME') }}"
-      port: "{{ env_var('DBT_PORT_NUM') | as_number }}"
-      user: "{{ env_var('DBT_USER_NAME') }}"
-      pass: "{{ env_var('DBT_USER_CRED') }}"
-      dbname: "{{ env_var('DBT_DATA_BASE') }}"
-      schema: "{{ env_var('DBT_CUST_SCHM') }}"
+      host: "{{ env_var('POSTGRES_HOSTNAME') }}"
+      port: "{{ env_var('POSTGRES_PORTNUM') | as_number }}"
+      user: "{{ env_var('POSTGRES_USERNAME') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('POSTGRES_DATABASE') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA') }}"
 
     prd:
       type: duckdb
