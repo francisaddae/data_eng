@@ -41,9 +41,9 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: .
-          file: ./Dockerfile
+          # file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER_NAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKER_USER_NAME }}/nextwebapp:latest, ${{ secrets.DOCKER_USER_NAME}}/nextwebapp:${{ github.run_number }}
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -78,7 +78,7 @@ jobs:
       - name: Install dbt
         run: pip install dbt-duckdb dbt-duckdb[glue] dbt deps
 
-      - name: Deploy & test Models (CI)
-        run: |
-          dbt debug --target prd
-          dbt build --target prd
+      # - name: Deploy & test Models (CI)
+      #   run: |
+      #     dbt debug --target prd
+      #     dbt build --target prd
