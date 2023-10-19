@@ -41,9 +41,8 @@ jobs:
         uses: docker/build-push-action@v5.0.0
         with:
           context: .
-          file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER_NAME }}/nextwebapp:latest, ${{ secrets.DOCKER_USER_NAME}}/nextwebapp:${{ github.run_number }}
+          tags: ${{ secrets.DOCKER_USER_NAME }}/nextwebapp:latest
 
       - name: Setup Python
         uses: actions/setup-python@v4
