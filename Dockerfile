@@ -7,8 +7,7 @@ FROM python:latest
 WORKDIR /home/app
 
 # run packages
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt  --ignore-engines
+RUN pip install -r requirements.txt
 
 COPY . .
 
