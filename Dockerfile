@@ -8,7 +8,7 @@ WORKDIR /home/app
 
 # run packages
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt  --ignore-engines
 
 COPY . .
 
