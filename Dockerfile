@@ -7,6 +7,7 @@ FROM python:latest
 WORKDIR /home/app
 
 # run packages
+RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 COPY . .
