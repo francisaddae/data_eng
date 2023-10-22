@@ -2,7 +2,7 @@ WITH purchases_2019 AS(
     SELECT
         member_id,
         purchase_id,
-        full_date AS purchase_date,
+        full_date::TIMESTAMP AS purchase_date,
         year AS purchase_year,
         month AS purchase_month,
         day AS purchase_day,
@@ -14,7 +14,7 @@ purchases_2020 AS (
     SELECT
         memberid AS member_id,
         purchaseid AS purchase_id,
-        fulldate AS purchase_date,
+        fulldate::TIMESTAMP AS purchase_date,
         EXTRACT(YEAR FROM fulldate) AS purchase_year,
         EXTRACT(MONTH FROM fulldate) AS purchase_month,
         EXTRACT(DAY FROM fulldate) AS purchase_day,
