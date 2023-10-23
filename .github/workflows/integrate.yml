@@ -43,7 +43,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USER_NAME }}/nextwebapp:latest
+          tags: ${{ secrets.DOCKER_USER_NAME }}/data_eng:latest
 
       - name: Setup Python
         uses: actions/setup-python@v4
