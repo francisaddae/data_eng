@@ -1,10 +1,9 @@
-FROM python:3.9.18
+FROM python:3.10
 
-WORKDIR /data_eng
+ADD requirements.txt requirements.txt
 
-ADD ./requirements.txt /data_eng/requirements.txt
-
-RUN pip install --no-cache-dir --upgrade -r /data_eng/requirements.txt
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 ADD . .
 
