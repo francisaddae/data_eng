@@ -7,10 +7,6 @@ alabaster==0.7.12
 alembic==1.8.1
 aniso8601==9.0.1
 anyio==3.7.1
-appdirs==1.4.4
-applaunchservices==0.3.0
-appnope==0.1.2
-apprise==1.1.0
 appscript==1.1.2
 argon2-cffi==21.3.0
 argon2-cffi-bindings==21.2.0
@@ -299,10 +295,6 @@ PyHamcrest==2.0.2
 PyJWT==2.4.0
 pylint==2.16.2
 pyls-spyder==0.4.0
-pyobjc-core==9.0
-pyobjc-framework-Cocoa==9.0
-pyobjc-framework-CoreServices==9.0
-pyobjc-framework-FSEvents==9.0
 pyodbc==4.0.34
 pyOpenSSL==23.2.0
 pyparsing==3.0.9
@@ -345,11 +337,9 @@ rsa==4.9
 Rtree==1.0.1
 ruamel.yaml==0.17.21
 ruamel.yaml.clib==0.2.6
-ruamel-yaml-conda==0.17.21
 s3transfer==0.6.0
 scikit-image==0.19.3
 scikit-learn==1.2.2
-scikit-learn-intelex==20230426.61523
 scipy==1.9.3
 scramp==1.4.4
 Scrapy==2.8.0
@@ -383,7 +373,6 @@ statsmodels==0.14.0
 sympy==1.11.1
 tables==3.8.0
 tabulate==0.8.10
-TBB==0.2
 tblib==1.7.0
 tenacity==8.2.2
 terminado==0.17.1
@@ -437,5 +426,3 @@ yapf==0.31.0
 yarl==1.8.1
 zict==3.0.0
 zipp==3.11.0
-zope.interface==5.4.0
-zstandard==0.19.0
