@@ -1,0 +1,26 @@
+
+data_modeling:
+  outputs:
+
+    dev:
+      type: postgres
+      threads: 4
+      host: "{{ env_var('POSTGRES_HOSTNAME') }}"
+      port: "{{ env_var('POSTGRES_PORTNUM') | as_number }}"
+      user: "{{ env_var('POSTGRES_USERNAME') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('POSTGRES_DATABASE') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA') }}"
+
+    prd:
+      type: duckdb
+      path: /tmp/dbt.duckdb
+      extensions:
+        - httpfs
+        - parquet
+      settings:
+        s3_region: us-east-1
+        s3_access_key_id: "{{ env_var('AWS_ACCESS_NAME') }}"
+        s3_secret_access_key: "{{ env_var('AWS_SECRET_KEY') }}"
+
+  target: dev
