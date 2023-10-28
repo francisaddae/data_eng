@@ -37,4 +37,3 @@ def repo_info(repo_owner: str = "PrefectHQ", repo_name: str = "prefect"):
 if __name__ == "__main__":
     # create your first scheduled deployment
     repo_info.serve(name="my-first-deployment", cron="0 0 * * *")
-
