@@ -89,7 +89,6 @@ jobs:
       - name: Install dbt
         run: |
           pip install dbt
-          dbt-snowflake
           dbt deps
 
       - name: Deploy & test Models (CI)
