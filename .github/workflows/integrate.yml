@@ -17,8 +17,7 @@ permissions:
   contents: write
 
 env:
-  DBT_PROFILES_DIR: ${{ github.workspace }}
-  RE_DATA_CONFIG_DIR: ${{ github.workspace }}
+  DBT_PROFILES_DIR: ./
 
   SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
   SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
