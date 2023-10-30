@@ -18,7 +18,6 @@ permissions:
 
 env:
   DBT_PROFILES_DIR: ./
-
   SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
   SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -89,7 +88,9 @@ jobs:
         run: |
           pip install dbt
           dbt deps
+          dbt --version
 
+      #Building dbt models
       - name: Deploy & test Models (CI)
         run: |
           dbt debug --target snow_prd
