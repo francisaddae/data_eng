@@ -75,7 +75,6 @@ jobs:
       - name: Install dbt and dependencies
         run: |
           pip install dbt
-          dbt snowflake
           dbt deps
 
       #Building dbt models
