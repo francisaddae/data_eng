@@ -79,8 +79,9 @@ jobs:
 
       #Building dbt models
       - name: Deploy & test Models (CI)
-        working-directory: ./data_modeling
+        working-directory: ./data_modeling/
         env:
+          DBT_PROFILE_DIR: ./
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
