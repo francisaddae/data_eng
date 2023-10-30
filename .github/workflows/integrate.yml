@@ -24,7 +24,6 @@ jobs:
     env:
       AWS_ACCESS_NAME: ${{ secrets.AWS_ACCESS_NAME }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      DBT_PROFILES_DIR: ./data_modeling/profiles.yml
       SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
@@ -89,6 +88,9 @@ jobs:
 
       #Building dbt models
       - name: Deploy & test Models (CI)
+        working_directory: ./data_modeling/
+        env:
+          DBT_PROFILES_DIR: ./
         run: |
           export DBT_PROFILES_DIR=$PWD
           dbt debug --target snow_prd
