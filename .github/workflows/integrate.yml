@@ -84,12 +84,14 @@ jobs:
       # Install dbt
       - name: Install dbt and dependencies
         run: |
-          pip install dbt-snowflake
+          pip install dbt-core dbt-snowflake
+          export DBT_PROFILES_DIR=$PWD
           dbt deps
 
       #Building dbt models
       - name: Deploy & test Models (CI)
         working-directory: ./data_modeling/
         run: |
+          export DBT_PROFILES_DIR=$PWD
           dbt debug --target snow_prd
       #     dbt build --target prd
