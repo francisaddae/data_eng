@@ -1,0 +1,41 @@
+data_modeling:
+  outputs:
+
+    dev:
+      type: postgres
+      threads: 4
+      host: "{{ env_var('POSTGRES_HOSTNAME') }}"
+      port: "{{ env_var('POSTGRES_PORTNUM') | as_number }}"
+      user: "{{ env_var('POSTGRES_USERNAME') }}"
+      pass: "{{ env_var('POSTGRES_PASSWORD') }}"
+      dbname: "{{ env_var('POSTGRES_DATABASE') }}"
+      schema: "{{ env_var('POSTGRES_SCHEMA') }}"
+
+    prd:
+      type: duckdb
+      path: /tmp/dbt.duckdb
+      extensions:
+        - httpfs
+        - parquet
+      settings:
+        s3_region: us-east-1
+        s3_access_key_id: "{{ env_var('AWS_ACCESS_NAME') }}"
+        s3_secret_access_key: "{{ env_var('AWS_SECRET_KEY') }}"
+
+    snow_prd:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+
+      # User/password auth
+      user: "{{ env_var('SNOWFLAKE_USERNAME') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD) }}"
+
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+      threads: 4
+      client_session_keep_alive: False
+      query_tag: snowql_dbt
+
+  target: dev
