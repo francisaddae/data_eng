@@ -83,7 +83,7 @@ jobs:
       # Install dbt
       - name: Install dbt and dependencies
         run: |
-          pip install dbt-core dbt-snowflake
+          pip install dbt-core dbt-snowflake dbt-duckdb dbt-duckdb[glue]
           export DBT_PROFILES_DIR=$PWD
 
       #Building dbt models
@@ -93,5 +93,5 @@ jobs:
           DBT_PROFILES_DIR: ./
         run: |
           export DBT_PROFILES_DIR=$PWD
-          dbt debug --target snow_prd
+          dbt debug --target prd
       #     dbt build --target prd
