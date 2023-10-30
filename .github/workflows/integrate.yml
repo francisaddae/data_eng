@@ -74,14 +74,14 @@ jobs:
       # Install dbt
       - name: Install dbt and dependencies
         run: |
-          pip install dbt
+          pip install dbt-snowflake
           dbt deps
 
       #Building dbt models
       - name: Deploy & test Models (CI)
         working-directory: ./data_modeling/
         env:
-          DBT_PROFILE_DIR: ./
+          DBT_PROFILES_DIR: ./
           SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
           SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
