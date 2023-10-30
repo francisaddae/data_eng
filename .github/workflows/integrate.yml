@@ -86,7 +86,6 @@ jobs:
         run: |
           pip install dbt-core dbt-snowflake
           export DBT_PROFILES_DIR=$PWD
-          dbt deps
 
       #Building dbt models
       - name: Deploy & test Models (CI)
