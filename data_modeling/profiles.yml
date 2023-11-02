@@ -37,5 +37,6 @@ data_modeling:
       threads: 4
       client_session_keep_alive: False
       query_tag: snowql_dbt
+      connect_retries: 3
 
   target: dev
