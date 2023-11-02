@@ -1,7 +1,7 @@
 
 {% macro at_date(col) %}
     -- Convert text to date
-    {{ col}}::DATE
+    {{ col }}::DATE
 {% endmacro %}
 
 {% macro at_date_with_format(col, format_method) %}
