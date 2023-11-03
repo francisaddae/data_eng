@@ -11,7 +11,7 @@ WITH journal_data AS(
             ELSE headline
         END AS headline,
         CASE
-            WHEN headline LIKE '%:%' THEN RIGHT(headline, CHAR_LENGTH(headline) - STRPOS(headline, ':'))
+            WHEN headline LIKE '%:%' THEN RIGHT(headline, LENGTH(headline) - STRPOS(headline, ':'))
             ELSE headline
         END AS subtitle,
         LEFT(short_description, STRPOS(short_description, '.')) AS description,
@@ -21,7 +21,7 @@ WITH journal_data AS(
         END AS keywords,
         {{ at_date_with_format('release_date', 'Mon dd, yyyy') }} AS publish_date
     FROM {{ ref('articles') }}
-    WHERE release_date BETWEEN '2014-01-01' AND '2015-12-31'
+    WHERE release_date::DATE BETWEEN '2014-01-01' AND '2015-12-31'
         AND LEFT(article_key, 4) = '1754'
 ),
 final AS (
