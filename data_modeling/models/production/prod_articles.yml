@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: prod_articles
+    description: '{{ doc("prod__articles") }}'
+    columns:
+      - name: prod__articles_key
+        description: '{{ doc("prod__articles_key") }}'
+        tests:
+          - unique
+          - not_null
+      - name: category
+        description: '{{ doc("prod__category") }}'
+      - name: headline
+        description: '{{ doc("prod__headline") }}'
+      - name: subtitle
+        description: '{{ doc("prod__subtitle") }}'
+      - name: description
+        description: '{{ doc("prod__description") }}'
+      - name: keywords
+        description: '{{ doc("prod__keywords") }}'
+      - name: publish_date
+        description: '{{ doc("prod__publish_date") }}'
