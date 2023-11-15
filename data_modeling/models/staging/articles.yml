@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: articles
+    description: '{{ doc("stg__articles") }}'
+    columns:
+      - name: article_key
+        description: '{{ doc("articles__article_key") }}'
+        tests:
+          - unique
+          - not_null
+      - name: category
+        description: '{{ doc("articles__category") }}'
+      - name: headline
+        description: '{{ doc("articles__headline") }}'
+      - name: subtitle
+        description: '{{ doc("articles__subtitle") }}'
+      - name: description
+        description: '{{ doc("articles__description") }}'
+      - name: keywords
+        description: '{{ doc("articles__keywords") }}'
+      - name: release_date
+        description: '{{ doc("articles__release_date") }}'

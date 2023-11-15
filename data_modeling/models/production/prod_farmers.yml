@@ -2,16 +2,16 @@ version: 2
 
 models:
   - name: prod_farmers
-    #description: '{{ doc("prod__dairy_farmers_purchases") }}'
+    description: '{{ doc("prod__dairy_farmers_purchases") }}'
     columns:
       - name: purchase_month
-        #description: '{{ doc("farmers__purchase_month") }}'
+        description: '{{ doc("farmers__purchase_month") }}'
         tests:
           - unique
           - not_null
       - name: total_sale
-        #description: '{{ doc("prod__total_sales") }}'
+        description: '{{ doc("prod__total_sales") }}'
       - name: market_share
-        #description: '{{ doc("prod__market_sale") }}'
+        description: '{{ doc("prod__market_sale") }}'
       - name: yearly_change
-        #description: '{{ doc("prod__yearly_change") }}'
+        description: '{{ doc("prod__yearly_change") }}'

@@ -17,12 +17,22 @@ permissions:
   contents: write
 
 
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_NAME: ${{ secrets.AWS_ACCESS_NAME }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE}}
+      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+
+
     steps:
 
       - name: Checkout branch
@@ -70,15 +80,18 @@ jobs:
         uses: yu-iskw/action-sqlfluff@v3
         id: lint-sql
 
-      #Installing duckdb
-      - name: DuckDB
-        run: pip install duckdb
-
       # Install dbt
-      - name: Install dbt
-        run: pip install dbt-duckdb dbt-duckdb[glue] dbt deps
+      - name: Install dbt and dependencies
+        run: |
+          pip install dbt-core dbt-snowflake dbt-duckdb dbt-duckdb[glue]
+          export DBT_PROFILES_DIR=$PWD
 
-      # - name: Deploy & test Models (CI)
-      #   run: |
-      #     dbt debug --target prd
-      #     dbt build --target prd
+      #Building dbt models
+      - name: Deploy & test Models (CI)
+        working-directory: ./data_modeling/
+        env:
+          DBT_PROFILES_DIR: ./
+        run: |
+          export DBT_PROFILES_DIR=$PWD
+          dbt debug --target prd
+          dbt build --target prd --exclude prod_articles

@@ -2,24 +2,24 @@ version: 2
 
 models:
   - name: farmers
-    #description: '{{ doc("farmers__purchases_info_table") }}'
+    description: '{{ doc("farmers__purchases_info_table") }}'
     columns:
       - name: member_id
-        #description: '{{ doc("farmers__member_id") }}'
+        description: '{{ doc("farmers__member_id") }}'
         tests:
           - not_null
       - name: purchase_id
-        #description: '{{ doc("farmers_purchase_id") }}'
+        description: '{{ doc("farmers_purchase_id") }}'
       - name: purchases_date
-        #description: '{{ doc("farmers__purchase_date") }}'
+        description: '{{ doc("farmers__purchase_date") }}'
       - name: purchase_year
-        #description: '{{ doc("farmers__purchase_year") }}'
+        description: '{{ doc("farmers__purchase_year") }}'
       - name: purchase_month
-        #description: '{{ doc("farmers__purchase_month") }}'
+        description: '{{ doc("farmers__purchase_month") }}'
       - name: purchase_day
-        #description: '{{ doc("farmers__purchase_day") }}'
+        description: '{{ doc("farmers__purchase_day") }}'
       - name: purchase_week_day
-        #description: '{{ doc("farmers__purchase_week_day")}}
+        description: '{{ doc("farmers__purchase_week_day")}}'
         tests:
           - accepted_values:
               values : [0, 1, 2, 3, 4, 5, 6]
