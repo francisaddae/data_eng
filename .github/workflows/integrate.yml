@@ -94,5 +94,5 @@ jobs:
         run: |
           export DBT_PROFILES_DIR=$PWD
           dbt debug --target prd
-          dbt deps
+          dbt --no-version-check deps
           dbt build --target prd --exclude prod_articles
