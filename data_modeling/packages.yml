@@ -11,7 +11,7 @@ packages:
   - git: https://github.com/dbt-labs/dbt-audit-helper.git
     revision: 0.4.0
   - git: "https://github.com/dbt-labs/dbt-labs-experimental-features" # git URL
-    subdirectory: "materialized-views" # name of subdirectory containing `dbt_project.yml`
+    subdirectory: "data_modeling" # name of subdirectory containing `dbt_project.yml`
     revision: 0.0.1
   - package: dbt-labs/snowplow
     version: 0.13.0
