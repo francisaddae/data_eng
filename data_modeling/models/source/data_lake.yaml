@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: datalake
+    schema: public
+    database: dataprojects
+    description: Data Lake databse containing all the raw unformatted data sources
+    tables:
+      - name: covidData
+        description: Raw and unflitered covid data gathered in NYC from 2020 onwards
