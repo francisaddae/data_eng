@@ -79,6 +79,8 @@ jobs:
       - name: SQL Fluff
         uses: yu-iskw/action-sqlfluff@v3
         id: lint-sql
+        with:
+          github_base_ref: "main"
 
       # Install dbt
       - name: Install dbt and dependencies
