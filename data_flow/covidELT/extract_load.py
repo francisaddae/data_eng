@@ -1,5 +1,6 @@
 import requests as r
-import json as js, os
+import json as js
+import os
 import pandas as pd
 import psycopg2 as pg
 from sqlalchemy import create_engine
@@ -36,10 +37,10 @@ def get_load_data(extracted_data):
         Loading data into postgres serving as a datalake. This will be used as a source in DBT
 
     Args:
-        extracted_data (_type_): _description_
+        extracted_data (DataFrame): Pandas Table consisting of all the data elements available
 
     Returns:
-        _type_: _description_
+        Boolean: True if the data landed in the datawarehouse else False
     """
 
     logger = get_run_logger()
