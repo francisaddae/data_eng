@@ -56,9 +56,7 @@ def get_load_data(extracted_data):
         host = os.environ.get("POSTGRES_HOSTNAME")
         port = os.environ.get("POSTGRES_PORTNUM")
 
-        eng = create_engine(
-            f"postgresql://{user}:{password}@{host}:{port}/{database}"
-        )
+        eng = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{database}")
 
         extracted_data.to_sql("covidData", eng)
         logger.info("Table Loaded successfully!!!")
