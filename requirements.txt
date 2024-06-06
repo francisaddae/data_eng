@@ -35,3 +35,6 @@ scipy
 seaborn
 setuptools
 pre-commit
+requests
+types-requests
+prefect_dbt
