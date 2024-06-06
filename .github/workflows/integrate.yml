@@ -24,6 +24,7 @@ jobs:
     env:
       AWS_ACCESS_NAME: ${{ secrets.AWS_ACCESS_NAME }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      GITHUB_PULL_REQUEST_BASE_REF: 'main'
       # SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
       # SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
       # SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
