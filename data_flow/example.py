@@ -1,4 +1,8 @@
-from prefect import flow, task, get_run_logger
+from __future__ import annotations
+
+from prefect import flow
+from prefect import get_run_logger
+from prefect import task
 
 
 @task(name="Print Hello")

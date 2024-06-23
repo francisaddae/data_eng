@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: covid
+    description: A table of covid cases detailing the attributed numbers related to hospitalized and death metrics.
+    columns:
+      - name: case_upload_id
+        description: index of the case metric uploaded.
+        tests:
+          - unique
+          - not_null
+      - name: date_of_interest
+        description: The date where the case was reported
+        tests:
+          - unique
+          - not_null
+      - name: case_count
+        description: Total number of every covid cases in NYC
+      - name: death_count
+        description: Total number of covid related death per day
+      - name: hospitalized_count
+        description: Total number of patients with covid that were admitted to a hospital per day

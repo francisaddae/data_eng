@@ -1,6 +1,10 @@
-import requests as r
+from __future__ import annotations
+
 import pandas as pd
-from prefect import flow, task, get_run_logger
+import requests as r
+from prefect import flow
+from prefect import get_run_logger
+from prefect import task
 
 
 @task

@@ -22,21 +22,21 @@ data_modeling:
         s3_access_key_id: "{{ env_var('AWS_ACCESS_NAME') }}"
         s3_secret_access_key: "{{ env_var('AWS_SECRET_KEY') }}"
 
-    snow_prd:
-      type: snowflake
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+    # snow_prd:
+    #   type: snowflake
+    #   account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
 
-      # User/password auth
-      user: "{{ env_var('SNOWFLAKE_USERNAME') }}"
-      password: "{{ env_var('SNOWFLAKE_PASSWORD) }}"
+    #   # User/password auth
+    #   user: "{{ env_var('SNOWFLAKE_USERNAME') }}"
+    #   password: "{{ env_var('SNOWFLAKE_PASSWORD) }}"
 
-      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
-      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
-      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
-      schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
-      threads: 4
-      client_session_keep_alive: False
-      query_tag: snowql_dbt
-      connect_retries: 3
+    #   role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+    #   database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    #   warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+    #   schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+    #   threads: 4
+    #   client_session_keep_alive: False
+    #   query_tag: snowql_dbt
+    #   connect_retries: 3
 
   target: dev

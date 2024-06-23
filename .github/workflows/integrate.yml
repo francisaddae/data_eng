@@ -6,11 +6,11 @@ on:
   push:
     branches:
       - main
-  # Replace pull_request with pull_request_target if you
-  # plan to use this action with forks, see the Limitations section
+      - staging
   pull_request:
     branches:
       - main
+      - staging
 
 permissions:
   checks: write
@@ -24,13 +24,14 @@ jobs:
     env:
       AWS_ACCESS_NAME: ${{ secrets.AWS_ACCESS_NAME }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
-      SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-      SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
-      SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE}}
-      SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-      SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+      GITHUB_PULL_REQUEST_BASE_REF: 'main'
+      # SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+      # SNOWFLAKE_USERNAME: ${{ secrets.SNOWFLAKE_USERNAME }}
+      # SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+      # SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+      # SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE}}
+      # SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+      # SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
 
 
     steps:
@@ -73,17 +74,20 @@ jobs:
           black: true
           black_auto_fix: true
           flake8: true
-          flake8_auto_fix: false
+          flake8_auto_fix: true
+          max-line-length: "100"
 
       #SQL Fluff
       - name: SQL Fluff
         uses: yu-iskw/action-sqlfluff@v3
         id: lint-sql
+        with:
+          github_base_ref: "main"
 
       # Install dbt
       - name: Install dbt and dependencies
         run: |
-          pip install dbt-core dbt-snowflake dbt-duckdb dbt-duckdb[glue]
+          pip install dbt-core==1.6.0 dbt-snowflake dbt-duckdb dbt-duckdb[glue]
           export DBT_PROFILES_DIR=$PWD
 
       #Building dbt models
@@ -94,4 +98,5 @@ jobs:
         run: |
           export DBT_PROFILES_DIR=$PWD
           dbt debug --target prd
+          dbt --no-version-check deps
           dbt build --target prd --exclude prod_articles

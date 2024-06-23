@@ -14,10 +14,8 @@ dbt-core
 dbt-duckdb
 dbt-extractor
 dbt-postgres
-dbt-redshift
 dbt-semantic-interfaces
 dbt-snowflake
-dbt-trino
 boto3
 botocore
 numpy
@@ -36,3 +34,7 @@ scikit-learn
 scipy
 seaborn
 setuptools
+pre-commit
+requests
+types-requests
+prefect_dbt
