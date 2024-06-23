@@ -17,9 +17,7 @@ eng = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{database}")
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
 sheet_name = "Policies"
-gsheet_url = (
-    f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-)
+gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 policy = pd.read_csv(gsheet_url)
 print(policy.dtypes)
 print(policy.head())
@@ -42,9 +40,7 @@ policy.to_sql("policies", eng, if_exists="replace", index=False)
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
 sheet_name = "Users"
-gsheet_url = (
-    f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-)
+gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 users = pd.read_csv(gsheet_url)
 print(users.head())
 print(users.dtypes)
@@ -57,9 +53,7 @@ users.to_sql("users", eng, if_exists="replace", index=False)
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
 sheet_name = "Claims"
-gsheet_url = (
-    f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-)
+gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
 claims = pd.read_csv(gsheet_url)
 print(claims.dtypes)
 print(claims.head())
