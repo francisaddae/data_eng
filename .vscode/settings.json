@@ -9,6 +9,21 @@
             "database": "dataprojects",
             "username": "postgres",
             "password": "francis419."
+        },
+        {
+            "pgOptions": {
+                "ssl": {
+                    "rejectUnauthorized": true
+                }
+            },
+            "previewLimit": 50,
+            "server": "night-tarsier-14763.7tt.aws-us-east-1.cockroachlabs.cloud",
+            "port": 26257,
+            "driver": "CockroachDB",
+            "name": "prod_db",
+            "database": "prod",
+            "username": "francis",
+            "password": "aDYOzw1y_7k9b2aE8r2HWw"
         }
     ]
 }
