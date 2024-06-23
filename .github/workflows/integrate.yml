@@ -75,6 +75,7 @@ jobs:
           black_auto_fix: true
           flake8: true
           flake8_auto_fix: true
+          max-line-length: "100"
 
       #SQL Fluff
       - name: SQL Fluff
