@@ -1,24 +1,9 @@
 from __future__ import annotations
 
-import os
-
 import pandas as pd
-from sqlalchemy import create_engine
+from connections.connection import Postgres
 
-
-user = os.environ.get("POSTGRES_USERNAME")
-database = os.environ.get("POSTGRES_DATABASE")
-password = os.environ.get("POSTGRES_PASSWORD")
-host = os.environ.get("POSTGRES_HOSTNAME")
-port = os.environ.get("POSTGRES_PORTNUM")
-
-# user = os.environ.get("PGUSER")
-# database = os.environ.get("PGDTBS")
-# password = os.environ.get("PGCREDS")
-# host = os.environ.get("PGHOST")
-# port = os.environ.get("PGPORT")
-
-eng = create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}")
+eng = Postgres.postrges_engine()
 
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
@@ -75,3 +60,5 @@ claims["Paid"] = claims["Paid"].astype(bool)
 claims.columns = map(str.lower, claims.columns)
 print(users.dtypes)
 claims.to_sql("claims", eng, if_exists="replace", index=False)
+
+Postgres.close()
