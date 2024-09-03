@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import json as js
-import os
 
 import pandas as pd
 import requests as req
@@ -9,7 +8,7 @@ from prefect import flow
 from prefect import get_run_logger
 from prefect import task
 from prefect_dbt.cli.commands import DbtCoreOperation
-from sqlalchemy import create_engine
+from wh_conns.connection import Postgres
 
 
 @task(name="covid_Data_Extract")
@@ -50,16 +49,12 @@ def get_load_data(extracted_data):
         logger.info("**** Load Method ****")
 
         # credentials
-        user = os.environ.get("POSTGRES_USERNAME")
-        database = os.environ.get("POSTGRES_DATABASE")
-        password = os.environ.get("POSTGRES_PASSWORD")
-        host = os.environ.get("POSTGRES_HOSTNAME")
-        port = os.environ.get("POSTGRES_PORTNUM")
-
-        eng = create_engine(f"postgresql://{user}:{password}@{host}:{port}/{database}")
+        eng = Postgres.postrges_engine()
 
         extracted_data.to_sql("covidData", eng)
         logger.info("Table Loaded successfully!!!")
+
+        Postgres.close()
 
         return True
     except Exception as err:

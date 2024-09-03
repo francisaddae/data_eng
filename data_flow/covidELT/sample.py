@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import pandas as pd
-from connections.connection import Postgres
+from wh_conns.connection import Postgres
 
 eng = Postgres.postrges_engine()
 
