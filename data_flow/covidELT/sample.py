@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import pandas as pd
-from wh_conns.connection import Postgres
+from connection import ClickHouse
+from connection import Postgres
 
-eng = Postgres.postrges_engine()
+eng = ClickHouse().postrges_connection()
 
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
@@ -28,7 +29,8 @@ policy["Personal_Liability_Limit"] = (
 print(policy.dtypes)
 print(policy.head())
 policy.columns = map(str.lower, policy.columns)
-policy.to_sql("policies", eng, if_exists="replace", index=False)
+policy.to_sql("policies", eng, index=False)
+
 
 # Ingesting googlesheets data into postgres database
 gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
@@ -42,7 +44,7 @@ print(users.dtypes)
 users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
 print(users.dtypes)
 users.columns = map(str.lower, users.columns)
-users.to_sql("users", eng, if_exists="replace", index=False)
+users.to_sql("users", eng, index=False)
 
 
 # Ingesting googlesheets data into postgres database
@@ -59,6 +61,6 @@ claims["Closed_Date"] = pd.to_datetime(claims["Closed_Date"]).dt.date
 claims["Paid"] = claims["Paid"].astype(bool)
 claims.columns = map(str.lower, claims.columns)
 print(users.dtypes)
-claims.to_sql("claims", eng, if_exists="replace", index=False)
+claims.to_sql("claims", eng, index=False)
 
-Postgres.close()
+Postgres().close

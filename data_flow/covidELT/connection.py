@@ -21,7 +21,7 @@ class Postgres:
 
     def postrges_connection(self):
         conn = self.postrges_engine()
-        conn = conn.connect()
+        conn = conn.raw_connection()
         return conn
 
     def close(self):
@@ -49,7 +49,7 @@ class ClickHouse:
 
     def postrges_connection(self):
         conn = self.postrges_engine()
-        conn = conn.connect()
+        conn = conn.raw_connection()
         return conn
 
     def close(self):

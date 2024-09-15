@@ -4,11 +4,11 @@ import json as js
 
 import pandas as pd
 import requests as req
+from connection import ClickHouse
 from prefect import flow
 from prefect import get_run_logger
 from prefect import task
 from prefect_dbt.cli.commands import DbtCoreOperation
-from wh_conns.connection import Postgres
 
 
 @task(name="covid_Data_Extract")
@@ -37,7 +37,7 @@ def get_data():
 @task(name="covid_Data_Load")
 def get_load_data(extracted_data):
     """
-    Loading data into postgres serving as a datalake.
+    Loading data into ClickHouse serving as a datalake.
     This will be used as a source in DBT
     Input: Pandas Table consisting of all the data elements available
     Returns: True if the data landed in the data warehouse else False
@@ -49,12 +49,12 @@ def get_load_data(extracted_data):
         logger.info("**** Load Method ****")
 
         # credentials
-        eng = Postgres.postrges_engine()
-
+        eng = ClickHouse().postrges_connection()
+        logger.info(eng)
         extracted_data.to_sql("covidData", eng)
         logger.info("Table Loaded successfully!!!")
 
-        Postgres.close()
+        ClickHouse().close()
 
         return True
     except Exception as err:
