@@ -4,7 +4,7 @@ import json as js
 
 import pandas as pd
 import requests as req
-from connection import ClickHouse
+from load import load_data_into_wh
 from prefect import flow
 from prefect import get_run_logger
 from prefect import task
@@ -13,9 +13,6 @@ from prefect_dbt.cli.commands import DbtCoreOperation
 
 @task(name="covid_Data_Extract")
 def get_data():
-    logger = get_run_logger()
-
-    logger.info("****  Extract Method ****")
     """
     This function extracts data from an API using the url.
     Uses the request library to get the send a get request to the API
@@ -23,6 +20,10 @@ def get_data():
     Input: None
     Returns: returns a pandas DataFrame which will be loaded into our datalake
     """
+    logger = get_run_logger()
+
+    logger.info("****  Extract Method Commencing... ****")
+
     url = "https://data.cityofnewyork.us/resource/rc75-m7u3.json"
 
     response = req.get(url)
@@ -30,7 +31,8 @@ def get_data():
     df = pd.DataFrame(js.loads(response.content))
     logger.info(f"Previewing random 25 records:\n{df.sample(25)}")
 
-    logger.info("**** Method Ended ****")
+    logger.info("**** Extration Method Ended ****")
+
     return df
 
 
@@ -46,15 +48,11 @@ def get_load_data(extracted_data):
     logger = get_run_logger()
 
     try:
-        logger.info("**** Load Method ****")
+        logger.info("**** Load Method Commencing... ****")
 
-        # credentials
-        eng = ClickHouse().postrges_connection()
-        logger.info(eng)
-        extracted_data.to_sql("covidData", eng)
-        logger.info("Table Loaded successfully!!!")
+        load_data_into_wh(extracted_data, "covidData")
 
-        ClickHouse().close()
+        logger.info("**** Load Method Ended ****")
 
         return True
     except Exception as err:

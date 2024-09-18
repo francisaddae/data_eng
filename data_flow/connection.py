@@ -14,14 +14,12 @@ class Postgres:
         self.password = os.environ.get("POSTGRES_PASSWORD")
 
     def postrges_engine(self):
-        engine = sqlalchemy.create_engine(
-            f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-        )
+        engine = sqlalchemy.create_engine(f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}")
         return engine
 
     def postrges_connection(self):
-        conn = self.postrges_engine()
-        conn = conn.raw_connection()
+        eng = self.postrges_engine()
+        conn = eng.raw_connection()
         return conn
 
     def close(self):
@@ -41,19 +39,20 @@ class ClickHouse:
         self.port = int(os.environ.get("CLICKHOUSE_NATIVE_PORT"))
         self.password = os.environ.get("CLICKHOUSE_CRED")
 
-    def postrges_engine(self):
+    def clickhouse_engine(self):
         engine = sqlalchemy.create_engine(
-            f"clickhouse+http://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
+            f"clickhouse+http://{self.user}:{self.password}@{self.host}:\
+                {self.port}/{self.database}?protocol=https"
         )
         return engine
 
-    def postrges_connection(self):
-        conn = self.postrges_engine()
+    def clickhouse_connection(self):
+        conn = self.clickhouse_engine()
         conn = conn.raw_connection()
         return conn
 
     def close(self):
-        if self.postrges_connection():
-            self.postrges_connection().close()
+        if self.clickhouse_connection():
+            self.clickhouse_connection().close()
         else:
-            self.postrges_engine().dispose()
+            self.clickhouse_engine().dispose()
