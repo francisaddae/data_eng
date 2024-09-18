@@ -25,11 +25,11 @@ repos:
     rev: v3.12.0
     hooks:
     -   id: reorder-python-imports
-        args: [
-            --application-directories, '.:src',
-            --py38-plus,
-            --add-import, 'from __future__ import annotations',
-        ]
+        # args: [
+        #     --application-directories, '.:src',
+        #     --py38-plus,
+        #     --add-import, 'from __future__ import annotations',
+        # ]
 -   repo: https://github.com/asottile/pyupgrade
     rev: v3.15.0
     hooks:
