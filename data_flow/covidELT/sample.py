@@ -1,16 +1,7 @@
-from __future__ import annotations
-
 import pandas as pd
 
 from ..connection import Postgres
-
-# from ..load import load_data_into_wh
-
-p = Postgres()
-# p.postrges_engine()
-
-gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
-sheet_name = ""
+from ..load import load_data_into_wh
 
 
 def main(gsheetid):
@@ -31,11 +22,13 @@ def main(gsheetid):
     print(policy.head())
     policy.columns = map(str.lower, policy.columns)
     policy.to_sql("policy", con=p.postgres_engine(), if_exists="replace")
-    # load_data_into_wh(policy, 'policy', 'CLICKHOUSE')
+    load_data_into_wh(policy, "policy", "CLICKHOUSE")
 
 
 if __name__ == "__main__":
-    main("1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew")
+    gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
+    p = Postgres()
+    main(gsheetid)
 
 
 # # Ingesting googlesheets data into postgres database
