@@ -38,10 +38,10 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
     try:
         if type.upper() == "CLICKHOUSE":
             # instantiate db connection
-            engine = sqlalchemy.create_engine(f"clickhouse+http://{user2}:{password2}@{host2}:{port2}/{database2}?protocol=https")
+            engine = sqlalchemy.create_engine(f"clickhouse+http://{user2}:{password2}@{host2}:{int(port2)}/{database2}?protocol=https")
         else:
             # instantiate db connection
-            engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{port}/{database}")
+            engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{int(port)}/{database}")
         # conn = engine.connect()
 
     except OperationalError as sql_error:

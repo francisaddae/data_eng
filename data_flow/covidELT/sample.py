@@ -1,7 +1,6 @@
 import pandas as pd
 from utils.connection import Postgres
-
-# from utils.load import load_data_into_wh
+from utils.load import load_data_into_wh
 
 p = Postgres()
 
@@ -23,8 +22,8 @@ def collect_policy_table_info(gsheetid):
     print(policy.dtypes)
     print(policy.head())
     policy.columns = map(str.lower, policy.columns)
-    policy.to_sql("policy", con=p.postgres_connection())
-    # load_data_into_wh(policy, "policy", "CLICKHOUSE")
+    policy.to_sql("policy", con=p.postgres_connection(), if_exists="replace", index=False)
+    load_data_into_wh(policy, "policy", "CLICKHOUSE")
 
 
 def collect_users_table_info(gsheetid):
@@ -38,7 +37,7 @@ def collect_users_table_info(gsheetid):
     print(users.dtypes)
     users.columns = map(str.lower, users.columns)
     users.to_sql("users", con=p.postgres_connection())
-    # load_data_into_wh(users, "users", "CLICKHOUSE")
+    load_data_into_wh(users, "users", "CLICKHOUSE")
 
 
 def collect_claims_table_info(gsheetid):
@@ -54,7 +53,7 @@ def collect_claims_table_info(gsheetid):
     claims.columns = map(str.lower, claims.columns)
     print(claims.dtypes)
     claims.to_sql("claims", con=p.postgres_connection())
-    # load_data_into_wh(claims, "claims", "CLICKHOUSE")
+    load_data_into_wh(claims, "claims", "CLICKHOUSE")
 
 
 def main():
