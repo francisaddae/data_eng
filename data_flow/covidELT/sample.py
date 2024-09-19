@@ -1,10 +1,12 @@
 import pandas as pd
 
-from ..connection import Postgres
-from ..load import load_data_into_wh
+from ..utils.connection import Postgres
+from ..utils.load import load_data_into_wh
+
+p = Postgres()
 
 
-def main(gsheetid):
+def collect_policy_table_info(gsheetid):
     # Ingesting googlesheets data into postgres database
     sheet_name = "Policies"
     gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
@@ -25,39 +27,42 @@ def main(gsheetid):
     load_data_into_wh(policy, "policy", "CLICKHOUSE")
 
 
-if __name__ == "__main__":
+def collect_users_table_info(gsheetid):
+    # Ingesting googlesheets data into postgres database
+    sheet_name = "Users"
+    gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+    users = pd.read_csv(gsheet_url)
+    print(users.head())
+    print(users.dtypes)
+    users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
+    print(users.dtypes)
+    users.columns = map(str.lower, users.columns)
+    load_data_into_wh(users, "users", "CLICKHOUSE")
+    users.to_sql("users", con=p.postgres_engine(), if_exists="replace")
+
+
+def collect_claims_table_info(gsheetid):
+    # Ingesting googlesheets data into postgres database
+    sheet_name = "Claims"
+    gsheet_url = f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
+    claims = pd.read_csv(gsheet_url)
+    print(claims.dtypes)
+    print(claims.head())
+    claims["Submitted_At"] = pd.to_datetime(claims["Submitted_At"]).dt.date
+    claims["Closed_Date"] = pd.to_datetime(claims["Closed_Date"]).dt.date
+    claims["Paid"] = claims["Paid"].astype(bool)
+    claims.columns = map(str.lower, claims.columns)
+    print(claims.dtypes)
+    claims.to_sql("claims", con=p.postgres_engine(), if_exists="replace")
+    load_data_into_wh(claims, "claims", "CLICKHOUSE")
+
+
+def main():
     gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
-    p = Postgres()
-    main(gsheetid)
+    collect_policy_table_info(gsheetid)
+    collect_users_table_info(gsheetid)
+    collect_claims_table_info(gsheetid)
 
 
-# # Ingesting googlesheets data into postgres database
-# gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
-# sheet_name = "Users"
-# gsheet_url = (
-#     f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-# )
-# users = pd.read_csv(gsheet_url)
-# print(users.head())
-# print(users.dtypes)
-# users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
-# print(users.dtypes)
-# users.columns = map(str.lower, users.columns)
-# # load_data_into_wh(users, 'users', 'CLICKHOUSE')
-
-
-# # Ingesting googlesheets data into postgres database
-# gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
-# sheet_name = "Claims"
-# gsheet_url = (
-#     f"https://docs.google.com/spreadsheets/d/{gsheetid}/gviz/tq?tqx=out:csv&sheet={sheet_name}"
-# )
-# claims = pd.read_csv(gsheet_url)
-# print(claims.dtypes)
-# print(claims.head())
-# claims["Submitted_At"] = pd.to_datetime(claims["Submitted_At"]).dt.date
-# claims["Closed_Date"] = pd.to_datetime(claims["Closed_Date"]).dt.date
-# claims["Paid"] = claims["Paid"].astype(bool)
-# claims.columns = map(str.lower, claims.columns)
-# print(users.dtypes)
-# # load_data_into_wh(claims, 'claims', 'CLICKHOUSE')
+if __name__ == "__main__":
+    main()
