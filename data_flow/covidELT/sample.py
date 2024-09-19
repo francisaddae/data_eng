@@ -1,7 +1,7 @@
 import pandas as pd
+from utils.connection import Postgres
 
-from ..utils.connection import Postgres
-from ..utils.load import load_data_into_wh
+# from utils.load import load_data_into_wh
 
 p = Postgres()
 
@@ -23,8 +23,8 @@ def collect_policy_table_info(gsheetid):
     print(policy.dtypes)
     print(policy.head())
     policy.columns = map(str.lower, policy.columns)
-    policy.to_sql("policy", con=p.postgres_engine(), if_exists="replace")
-    load_data_into_wh(policy, "policy", "CLICKHOUSE")
+    policy.to_sql("policy", con=p.postgres_connection())
+    # load_data_into_wh(policy, "policy", "CLICKHOUSE")
 
 
 def collect_users_table_info(gsheetid):
@@ -37,8 +37,8 @@ def collect_users_table_info(gsheetid):
     users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
     print(users.dtypes)
     users.columns = map(str.lower, users.columns)
-    load_data_into_wh(users, "users", "CLICKHOUSE")
-    users.to_sql("users", con=p.postgres_engine(), if_exists="replace")
+    users.to_sql("users", con=p.postgres_connection())
+    # load_data_into_wh(users, "users", "CLICKHOUSE")
 
 
 def collect_claims_table_info(gsheetid):
@@ -53,8 +53,8 @@ def collect_claims_table_info(gsheetid):
     claims["Paid"] = claims["Paid"].astype(bool)
     claims.columns = map(str.lower, claims.columns)
     print(claims.dtypes)
-    claims.to_sql("claims", con=p.postgres_engine(), if_exists="replace")
-    load_data_into_wh(claims, "claims", "CLICKHOUSE")
+    claims.to_sql("claims", con=p.postgres_connection())
+    # load_data_into_wh(claims, "claims", "CLICKHOUSE")
 
 
 def main():

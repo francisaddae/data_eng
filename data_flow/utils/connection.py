@@ -13,20 +13,20 @@ class Postgres:
         self.port = os.environ.get("POSTGRES_PORTNUM")
         self.password = os.environ.get("POSTGRES_PASSWORD")
 
-    def postrges_engine(self):
+    def postgres_engine(self):
         engine = sqlalchemy.create_engine(f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}")
         return engine
 
-    def postrges_connection(self):
-        eng = self.postrges_engine()
+    def postgres_connection(self):
+        eng = self.postgres_engine()
         conn = eng.raw_connection()
         return conn
 
     def close(self):
-        if self.postrges_connection():
-            self.postrges_connection().close()
+        if self.postgres_connection():
+            self.postgres_connection().close()
         else:
-            self.postrges_engine().dispose()
+            self.postgres_engine().dispose()
 
 
 class ClickHouse:

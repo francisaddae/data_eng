@@ -1,7 +1,6 @@
 import os
 
 import sqlalchemy
-from prefect import get_run_logger
 from sqlalchemy.exc import DataError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.exc import OperationalError
@@ -35,7 +34,7 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
         type (str): Name of the warehouse being used. default to local postgres
         mode (str): Type of data mode being used.
     """
-    logger = get_run_logger()
+
     try:
         if type.upper() == "CLICKHOUSE":
             # instantiate db connection
@@ -49,9 +48,9 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
         raise (f"Cannot connect to DB: {sql_error}")
 
     try:
-        logger.info(f"Loading {table.upper()} data  into {type.upper()} warehouse")
-        data.to_sql(table, engine, if_exists=mode, index=False)
-        logger.info(f"**** {table.upper()} TABULAR DATA LOADED SUCCESSFULLY!!! ****")
+        print(f"Loading {table.upper()} data  into {type.upper()} warehouse")
+        data.to_sql(table, engine.raw_connection(), if_exists=mode, index=False)
+        print(f"**** {table.upper()} TABULAR DATA LOADED SUCCESSFULLY!!! ****")
 
     except OperationalError as sql_error:
         raise (f"Loading {table.upper()} data error: {sql_error}")
