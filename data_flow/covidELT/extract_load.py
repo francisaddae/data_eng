@@ -8,8 +8,7 @@ from prefect import flow
 from prefect import get_run_logger
 from prefect import task
 from prefect_dbt.cli.commands import DbtCoreOperation
-
-from ..utils.load import load_data_into_wh
+from utils.load import load_data_into_wh
 
 
 @task(name="covid_Data_Extract")
