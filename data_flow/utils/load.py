@@ -1,23 +1,8 @@
-import os
-
-import sqlalchemy
+from connection import ClickHouse
+from connection import Postgres
 from sqlalchemy.exc import DataError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.exc import OperationalError
-
-# credentials for LOCAL POSTGRES
-user = os.environ.get("POSTGRES_USERNAME")
-database = os.environ.get("POSTGRES_DATABASE")
-password = os.environ.get("POSTGRES_PASSWORD")
-host = os.environ.get("POSTGRES_HOSTNAME")
-port = os.environ.get("POSTGRES_PORTNUM")
-
-# crednetials for CLICKHOUSE
-user2 = os.environ.get("CLICKHOUSE_USER")
-database2 = os.environ.get("CLICKHOUSE_DATABASE")
-password2 = os.environ.get("CLICKHOUSE_CRED")
-host2 = os.environ.get("CLICKHOUSE_HOST")
-port2 = int(os.environ.get("CLICKHOUSE_NATIVE_PORT"))
 
 
 def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
@@ -38,18 +23,17 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
     try:
         if type.upper() == "CLICKHOUSE":
             # instantiate db connection
-            engine = sqlalchemy.create_engine(f"clickhouse+http://{user2}:{password2}@{host2}:{int(port2)}/{database2}?protocol=https")
+            engine = Postgres().postgres_engine()
         else:
             # instantiate db connection
-            engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{user}:{password}@{host}:{int(port)}/{database}")
-        # conn = engine.connect()
+            engine = ClickHouse().clickhouse_engine()
 
     except OperationalError as sql_error:
         raise (f"Cannot connect to DB: {sql_error}")
 
     try:
         print(f"Loading {table.upper()} data  into {type.upper()} warehouse")
-        data.to_sql(table, engine.raw_connection(), if_exists=mode, index=False)
+        data.to_sql(table, engine, if_exists=mode, index=False)
         print(f"**** {table.upper()} TABULAR DATA LOADED SUCCESSFULLY!!! ****")
 
     except OperationalError as sql_error:
