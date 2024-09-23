@@ -1,8 +1,8 @@
-from connection import ClickHouse
-from connection import Postgres
 from sqlalchemy.exc import DataError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.exc import OperationalError
+from utils.connection import ClickHouse
+from utils.connection import Postgres
 
 
 def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
@@ -23,10 +23,10 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
     try:
         if type.upper() == "CLICKHOUSE":
             # instantiate db connection
-            engine = Postgres().postgres_engine()
+            engine = ClickHouse().clickhouse_engine()
         else:
             # instantiate db connection
-            engine = ClickHouse().clickhouse_engine()
+            engine = Postgres().postgres_engine()
 
     except OperationalError as sql_error:
         raise (f"Cannot connect to DB: {sql_error}")
