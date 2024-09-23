@@ -22,7 +22,6 @@ def collect_policy_table_info(gsheetid):
     print(policy.dtypes)
     print(policy.head())
     policy.columns = map(str.lower, policy.columns)
-    policy.to_sql(name="policies", con=p.postgres_connection(), if_exists="replace", index=False)
     load_data_into_wh(policy, "policies", "POSTGRES")
 
 
@@ -36,8 +35,7 @@ def collect_users_table_info(gsheetid):
     users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
     print(users.dtypes)
     users.columns = map(str.lower, users.columns)
-    users.to_sql("users", con=p.postgres_connection())
-    load_data_into_wh(users, "users", "CLICKHOUSE")
+    load_data_into_wh(users, "users", "POSTGRES")
 
 
 def collect_claims_table_info(gsheetid):
@@ -52,21 +50,14 @@ def collect_claims_table_info(gsheetid):
     claims["Paid"] = claims["Paid"].astype(bool)
     claims.columns = map(str.lower, claims.columns)
     print(claims.dtypes)
-    claims.to_sql("claims", con=p.postgres_connection())
-    load_data_into_wh(claims, "claims", "CLICKHOUSE")
+    load_data_into_wh(claims, "claims", "POSTGRES")
 
 
 def main():
     gsheetid = "1v8bvtD2aSiVgjrwPZDO3F9X6YSzaycevebeHI_l3rew"
     collect_policy_table_info(gsheetid)
-    # collect_users_table_info(gsheetid)
-    # collect_claims_table_info(gsheetid)
-    # query= """SELECT table_name FROM information_schema.tables
-    #    WHERE table_schema = 'public'
-    # """
-    # cur = p.postgres_connection().cursor()
-    # cur.execute(query)
-    # print(cur.fetchall())
+    collect_users_table_info(gsheetid)
+    collect_claims_table_info(gsheetid)
 
 
 if __name__ == "__main__":
