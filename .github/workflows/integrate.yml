@@ -83,9 +83,9 @@ jobs:
         env:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-        working-directory: ./data_eng/data_flow/
+        working-directory: /data_eng/
         run: |
-          python data_eng/data_flow/flows.py
+          python /data_eng/data_flow/flows.py
 
       # Install your linters here
       - name: Run linters
