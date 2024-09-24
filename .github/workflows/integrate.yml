@@ -75,7 +75,7 @@ jobs:
       - name: Run Python Script
         working-directory: ./data_flow/
         run: |
-          python flow.py
+          python flows.py
 
       # Install your linters here
       - name: Run linters
