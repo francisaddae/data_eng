@@ -27,7 +27,7 @@ def collect_policy_table_info(gsheetid):
     logger.info(policy.dtypes)
     logger.info(policy.head())
     policy.columns = map(str.lower, policy.columns)
-    load_data_into_wh(policy, "policies", "POSTGRES")
+    load_data_into_wh(policy, "policies", "DUCKDB")
 
 
 @task(name="Users_Table")
@@ -42,7 +42,7 @@ def collect_users_table_info(gsheetid):
     users["Date_of_Birth"] = pd.to_datetime(users["Date_of_Birth"]).dt.date
     logger.info(users.dtypes)
     users.columns = map(str.lower, users.columns)
-    load_data_into_wh(users, "users", "POSTGRES")
+    load_data_into_wh(users, "users", "DUCKDB")
 
 
 @task(name="Claims_Table")
@@ -59,7 +59,7 @@ def collect_claims_table_info(gsheetid):
     claims["Paid"] = claims["Paid"].astype(bool)
     claims.columns = map(str.lower, claims.columns)
     logger.info(claims.dtypes)
-    load_data_into_wh(claims, "claims", "POSTGRES")
+    load_data_into_wh(claims, "claims", "DUCKDB")
 
 
 @flow(name="lemonadeFLOW")

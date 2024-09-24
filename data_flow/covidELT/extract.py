@@ -50,7 +50,7 @@ def get_load_data(extracted_data):
     try:
         logger.info("**** Load Method Commencing... ****")
         extracted_data["index"] = range(1, len(extracted_data) + 1)
-        load_data_into_wh(extracted_data, "covidData", "POSTGRES")
+        load_data_into_wh(extracted_data, "covidData", "DUCKDB")
 
         logger.info("**** Load Method Ended ****")
 

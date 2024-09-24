@@ -2,6 +2,7 @@ from sqlalchemy.exc import DataError
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.exc import OperationalError
 from utils.connection import ClickHouse
+from utils.connection import DuckDB
 from utils.connection import Postgres
 
 
@@ -24,6 +25,9 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
         if type.upper() == "CLICKHOUSE":
             # instantiate db connection
             engine = ClickHouse().clickhouse_engine()
+        elif type.upper() == "DUCKDB":
+            # instantiate db connection
+            engine = DuckDB().duckdb_connection()
         else:
             # instantiate db connection
             engine = Postgres().postgres_engine()
@@ -43,4 +47,5 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
     except DataError as data_error:
         raise (f"Incorrect data type or data_format: {data_error}")
     finally:
-        engine.dispose()
+        if type.upper() != "DUCKDB":
+            engine.dispose()

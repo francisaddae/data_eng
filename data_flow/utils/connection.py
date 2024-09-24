@@ -56,3 +56,15 @@ class ClickHouse:
             self.clickhouse_connection().close()
         else:
             self.clickhouse_engine().dispose()
+
+
+class DuckDB:
+    """DuckDB Connection Connector"""
+
+    def duckdb_engine(self):
+        engine = sqlalchemy.create_engine("duckdb:///md:my_db").connect()
+        return engine
+
+    def duckdb_connection(self):
+        engine = sqlalchemy.create_engine("duckdb:///:memory").connect()
+        return engine
