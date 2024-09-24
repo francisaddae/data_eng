@@ -75,7 +75,7 @@ jobs:
       - name: Run Python Script
         working-directory: ./data_flow/
         run: |
-          python covidELT/sample.py
+          python flow.py
 
       # Install your linters here
       - name: Run linters
