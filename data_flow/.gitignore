@@ -2,3 +2,4 @@ __pycache__/
 .dockerignore
 compose.yaml
 .pre-commit-config.yaml
+:memory
