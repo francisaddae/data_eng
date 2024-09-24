@@ -49,8 +49,8 @@ def get_load_data(extracted_data):
 
     try:
         logger.info("**** Load Method Commencing... ****")
-
-        load_data_into_wh(extracted_data, "covidData")
+        extracted_data["index"] = range(1, len(extracted_data) + 1)
+        load_data_into_wh(extracted_data, "covidData", "POSTGRES")
 
         logger.info("**** Load Method Ended ****")
 
@@ -65,7 +65,7 @@ def trigger_dbt_flow(initaiter=False) -> str:
     if initaiter:
         DbtCoreOperation(
             commands=["dbt build -s covid.sql+ -t dev"],
-            project_dir="data_modeling",
+            project_dir="/Users/Francis/Desktop/CODE/data_eng/data_modeling",
             profiles_dir="~/.dbt",
         ).run()
         return "yes"
@@ -78,7 +78,3 @@ def covidDataELT():
     etz = get_data()
     load = get_load_data(etz)
     trigger_dbt_flow(load)
-
-
-if __name__ == "__main__":
-    covidDataELT()
