@@ -30,6 +30,9 @@ jobs:
       POSTGRES_HOSTNAME: ${{ secrets.POSTGRES_HOSTNAME }}
       POSTGRES_PORTNUM: ${{ secrets.POSTRES_PORTNUM }}
       POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+      PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+      PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
+      PREFECT_WORKSPACE: ${{ secrets.PREFECT_WORKSPACE }}
     # defaults:
     #   run:
     #     working-directory: ./data_eng
