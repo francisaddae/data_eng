@@ -84,7 +84,8 @@ jobs:
         with:
           deployment-names: MY_Main_Flow
           requirements-file-path: requirements.txt
-          entrypoint: data_flow/flow.py
+          deployment-file-path: .github/workflows/prefect.yaml
+          # entrypoint: data_flow/flow.py
 
       # Install your linters here
       - name: Run linters
