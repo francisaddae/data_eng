@@ -1,0 +1,23 @@
+name: simple
+prefect-version: 3.0.0
+
+build: null
+
+push: null
+
+pull:
+  - prefect.deployments.steps.git_clone:
+      repository: git@github.com:francisaddae/data_eng.git
+      branch: main
+      access_token: "{{ prefect.blocks.secret.simple-github-pat }}"
+
+deployments:
+  - name: Main Flow
+    description: A Flow Examples
+    entrypoint: flows.py
+    parameters: {}
+    schedule: {}
+    work_pool:
+      job_variables:
+        image: prefecthq/prefect:3-latest
+      name: flow-pool
