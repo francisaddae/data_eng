@@ -68,20 +68,18 @@ jobs:
           pip install black flake8
           pip install -r requirements.txt
 
-      #Prefect Authenication and Run
+      #Prefect Auth
       - name: Prefect Auth
         uses: PrefectHQ/actions-prefect-auth@v1
         with:
           prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
           prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
-        run: python data_flow/flows.py
 
       # Run prefect deployment
       - name: Prefect Deploy
-        env:
-          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-        run: python data_flow/flows.py
+        uses: PrefectHQ/actions-prefect-deploy@v4
+        with:
+          entrypoint: data_flow/flow.py
 
       # Install your linters here
       - name: Run linters
