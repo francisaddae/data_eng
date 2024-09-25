@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir --upgrade -r /data_eng/requirements.txt
 
 ADD . .
 
-CMD [ "python", "/data_eng/data_flow/basic_elt.py" ]
+CMD [ "python", "/data_eng/data_flow/flows.py" ]

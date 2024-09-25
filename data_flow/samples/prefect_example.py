@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import httpx
-from prefect import flow, task
+from prefect import flow
+from prefect import task
 
 
 @task(retries=2)

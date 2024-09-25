@@ -41,4 +41,3 @@ models:
       +materialized: view
       +schema: prod
       +full_refresh: true
-
