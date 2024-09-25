@@ -68,16 +68,13 @@ jobs:
           pip install black flake8
           pip install -r requirements.txt
 
-      - name: Run Python Script
-        run: python data_flow/flows.py
-
       #Prefect Authenication and Run
       - name: Prefect Auth
         uses: PrefectHQ/actions-prefect-auth@v1
         with:
           prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
           prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
-
+        run: python data_flow/flows.py
 
       # Run prefect deployment
       - name: Prefect Deploy
