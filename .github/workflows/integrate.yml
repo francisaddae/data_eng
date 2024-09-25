@@ -79,6 +79,7 @@ jobs:
       - name: Prefect Deploy
         uses: PrefectHQ/actions-prefect-deploy@v4
         with:
+          requirements-file-path: requirements.txt
           entrypoint: data_flow/flow.py
 
       # Install your linters here
