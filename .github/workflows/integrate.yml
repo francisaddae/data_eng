@@ -75,8 +75,8 @@ jobs:
       - name: Prefect Auth
         uses: PrefectHQ/actions-prefect-auth@v1
         with:
-          prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
-          prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
+          prefect-api-key: pnu_GmgokUbb8LsM6eEWXC6ZWo0uComZEr0t2V5F
+          prefect-workspace: "francis-addae/default"
 
       # Run prefect deployment
       - name: Prefect Deploy
