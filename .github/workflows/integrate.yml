@@ -83,7 +83,7 @@ jobs:
         env:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-        working-directory: /data_eng/
+        working-directory: ./data_eng/
         run: |
           python /data_eng/data_flow/flows.py
 

@@ -38,3 +38,5 @@ pre-commit
 requests
 types-requests
 prefect_dbt
+duckdb
+duckdb-engine
