@@ -83,7 +83,7 @@ jobs:
         uses: PrefectHQ/actions-prefect-deploy@v4
         with:
           deployment-names: MY_Main_Flow
-          requirements-file-path: requirements.txt
+          # requirements-file-path: requirements.txt
           deployment-file-path: .github/workflows/prefect.yaml
           # entrypoint: data_flow/flow.py
 
