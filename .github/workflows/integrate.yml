@@ -32,8 +32,7 @@ jobs:
       POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
     defaults:
       run:
-        shell: bash
-        working-directory: ./data_eng/
+        working-directory: /home/runner/work/data_eng/
 
     steps:
 
