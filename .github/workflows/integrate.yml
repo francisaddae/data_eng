@@ -82,6 +82,7 @@ jobs:
       - name: Prefect Deploy
         uses: PrefectHQ/actions-prefect-deploy@v4
         with:
+          deployment-names: MY_Main_Flow
           requirements-file-path: requirements.txt
           entrypoint: data_flow/flow.py
 

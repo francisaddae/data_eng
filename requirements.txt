@@ -1,4 +1,4 @@
-prefect<3
+prefect
 prefect-aws
 pandas
 pytest

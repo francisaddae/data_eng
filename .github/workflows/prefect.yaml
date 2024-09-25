@@ -14,7 +14,7 @@ pull:
 deployments:
   - name: Main Flow
     description: A Flow Examples
-    entrypoint: flows.py
+    entrypoint: data_flow/flow.py
     parameters: {}
     schedule: {}
     work_pool:
