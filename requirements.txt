@@ -1,5 +1,4 @@
-'prefect<3'
-'prefect-client<3'
+prefect<3
 prefect-aws
 pandas
 pytest
