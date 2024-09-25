@@ -71,6 +71,14 @@ jobs:
           working-directory: ./data_eng/data_flow/
           command: python flows.py
 
+      #Prefect Authenication and Run
+      - name: Prefect Auth
+        uses: PrefectHQ/actions-prefect-auth@v1
+        with:
+          prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
+          prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
+
+
       # Run prefect deployment
       - name: Prefect Deploy
         env:
