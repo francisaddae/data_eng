@@ -1,4 +1,4 @@
-prefect<3
+prefect>=2.20.0
 prefect-aws
 pandas
 pytest
