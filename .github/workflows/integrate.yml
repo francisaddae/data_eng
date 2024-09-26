@@ -19,9 +19,8 @@ permissions:
 
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    env:
+
+  env:
       AWS_ACCESS_NAME: ${{ secrets.AWS_ACCESS_NAME }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       GITHUB_PULL_REQUEST_BASE_REF: 'main'
@@ -34,10 +33,22 @@ jobs:
       PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
       PREFECT_WORKSPACE: ${{ secrets.PREFECT_WORKSPACE }}
 
+  build-and-deploy:
+    runs-on: ubuntu-latest
     steps:
-
       - name: Checkout branch
         uses: actions/checkout@v4.1.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install black flake8
+          pip install -r requirements.txt
 
       # Install your linters here
       - name: Run linters
@@ -48,6 +59,7 @@ jobs:
           black_auto_fix: true
           flake8: true
           flake8_auto_fix: true
+          max-line-length: "150"
           prettier: true
 
       #SQL Fluff
@@ -76,17 +88,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/data_eng:latest
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install black flake8
-          pip install -r requirements.txt
 
       #Prefect Auth
       - name: Prefect Auth
