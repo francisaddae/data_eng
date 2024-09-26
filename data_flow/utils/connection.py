@@ -14,7 +14,9 @@ class Postgres:
         self.password = os.environ.get("POSTGRES_PASSWORD")
 
     def postgres_engine(self):
-        engine = sqlalchemy.create_engine(f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}")
+        engine = sqlalchemy.create_engine(
+            f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
+        )
         return engine
 
     def postgres_connection(self):

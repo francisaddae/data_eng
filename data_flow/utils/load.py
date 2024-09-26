@@ -43,7 +43,9 @@ def load_data_into_wh(data, table, type="POSTGRES", mode="replace"):
     except OperationalError as sql_error:
         raise (f"Loading {table.upper()} data error: {sql_error}")
     except IntegrityError as integ_error:
-        raise (f"Data Integrity Compromised! See underlying data issue. \n Error Message: {integ_error}")
+        raise (
+            f"Data Integrity Compromised! See underlying data issue. \n Error Message: {integ_error}"
+        )
     except DataError as data_error:
         raise (f"Incorrect data type or data_format: {data_error}")
     finally:
