@@ -1,4 +1,4 @@
-prefect<3.0
+prefect
 pandas
 pytest
 python-dateutil
@@ -37,6 +37,5 @@ pre-commit
 requests
 types-requests
 prefect_dbt
-prefect-dbt-flow==0.5.8
 duckdb
 duckdb-engine
