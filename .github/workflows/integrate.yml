@@ -70,7 +70,7 @@ jobs:
 
       #Prefect Auth
       - name: Prefect Auth
-        uses: PrefectHQ/actions-prefect-auth@v1
+        uses: PrefectHQ/actions-prefect-auth@v2
         with:
           prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
           prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
@@ -78,11 +78,12 @@ jobs:
       # Run prefect deployment
       - name: Prefect Deploy
         uses: PrefectHQ/actions-prefect-deploy@v4
-        with:
-          deployment-names: MY_Main_Flow
-          requirements-file-path: requirements.txt
-          deployment-file-path: .github/workflows/prefect.yaml
-          # entrypoint: data_flow/flow.py
+        run: python data_flow/flow.py
+        # with:
+        #   deployment-names: MY_Main_Flow
+        #   requirements-file-path: requirements.txt
+        #   deployment-file-path: .github/workflows/prefect.yaml
+        #   # entrypoint: data_flow/flow.py
 
       # Install your linters here
       - name: Run linters
