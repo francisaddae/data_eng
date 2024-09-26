@@ -33,9 +33,6 @@ jobs:
       PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
       PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
       PREFECT_WORKSPACE: ${{ secrets.PREFECT_WORKSPACE }}
-    # defaults:
-    #   run:
-    #     working-directory: ./data_eng
 
     steps:
 
