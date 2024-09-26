@@ -3,7 +3,10 @@ import os
 import clickhouse_connect
 
 client = clickhouse_connect.get_client(
-    host=os.environ.get("CLICKHOUSE_HOST"), user=os.environ.get("CLICKHOUSE_USER"), password=os.environ.get("CLICKHOUSE_CRED"), secure=True
+    host=os.environ.get("CLICKHOUSE_HOST"),
+    user=os.environ.get("CLICKHOUSE_USER"),
+    password=os.environ.get("CLICKHOUSE_CRED"),
+    secure=True,
 )
 
 
