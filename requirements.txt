@@ -37,6 +37,6 @@ pre-commit
 requests
 types-requests
 prefect_dbt==0.6.1
-prefect-dbt-flow=0.5.8
+prefect-dbt-flow==0.5.8
 duckdb
 duckdb-engine
