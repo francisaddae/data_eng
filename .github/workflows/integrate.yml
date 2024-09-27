@@ -49,8 +49,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install black flake8
           pip install -r requirements.txt
-          cd data_flow
-          python -m covidELT.extract
 
       # Install your linters here
       - name: Run linters
@@ -103,7 +101,7 @@ jobs:
         with:
           deployment-names: MY_Main_Flow
           requirements-file-paths: requirements.txt
-          # deployment-file-path: .github/workflows/prefect.yaml
+          deployment-file-path: .github/workflows/prefect.yaml
 
       # Install dbt
       - name: Install dbt and dependencies
