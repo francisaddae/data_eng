@@ -100,7 +100,7 @@ jobs:
         uses: PrefectHQ/actions-prefect-deploy@v4
         with:
           deployment-names: MY_Main_Flow
-          requirements-file-paths: requirements.txt
+          # requirements-file-paths: requirements.txt
           deployment-file-path: .github/workflows/prefect.yaml
 
       # Install dbt
