@@ -30,11 +30,45 @@ jobs:
       POSTGRES_HOSTNAME: ${{ secrets.POSTGRES_HOSTNAME }}
       POSTGRES_PORTNUM: ${{ secrets.POSTRES_PORTNUM }}
       POSTGRES_DATABASE: ${{ secrets.POSTGRES_DATABASE }}
+      PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+      PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
+      PREFECT_WORKSPACE: ${{ secrets.PREFECT_WORKSPACE }}
 
     steps:
 
       - name: Checkout branch
         uses: actions/checkout@v4.1.0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install black flake8
+          pip install -r requirements.txt
+
+      # Install your linters here
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          auto_fix: true
+          black: true
+          black_auto_fix: true
+          flake8: true
+          flake8_auto_fix: true
+          max-line-length: "150"
+
+      #SQL Fluff
+      - name: SQL Fluff
+        uses: yu-iskw/action-sqlfluff@v4
+        id: lint-sql
+        with:
+          github_base_ref: "main"
+          sqlfluff_version: "3.0.7"
+          sqlfluff_command: "fix" # Or "lint"
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -54,60 +88,30 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USER_NAME }}/data_eng:latest
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      #Prefect Auth
+      - name: Prefect Auth
+        uses: PrefectHQ/actions-prefect-auth@v2
         with:
-          python-version: '3.11'
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install black flake8
-          pip install -r ./requirements.txt
-
-      - name: Run Python Script
-        working-directory: ./data_flow/
-        run:
-          working-directory: ./data_eng/data_flow/
-          command: python flows.py
+          prefect-api-key: ${{ secrets.PREFECT_API_KEY }}
+          prefect-workspace: ${{ secrets.PREFECT_WORKSPACE }}
 
       # Run prefect deployment
       - name: Prefect Deploy
-        env:
-          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
-        run:
-          shell: bash
-          working-directory: ./data_eng/
-          command: python /data_eng/data_flow/flows.py
-
-      # Install your linters here
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
+        uses: PrefectHQ/actions-prefect-deploy@v4
         with:
-          auto_fix: true
-          black: true
-          black_auto_fix: true
-          flake8: true
-          flake8_auto_fix: true
-          max-line-length: "100"
-
-      #SQL Fluff
-      - name: SQL Fluff
-        uses: yu-iskw/action-sqlfluff@v3
-        id: lint-sql
-        with:
-          github_base_ref: "main"
+          deployment-names: MY_Main_Flow
+          # requirements-file-paths: requirements.txt
+          deployment-file-path: .github/workflows/prefect.yaml
 
       # Install dbt
       - name: Install dbt and dependencies
         run: |
-          pip install dbt-core==1.6.0 dbt-snowflake dbt-duckdb dbt-duckdb[glue]
+          pip install dbt-core==1.6.0 dbt-duckdb dbt-duckdb[glue]
           export DBT_PROFILES_DIR=$PWD
 
       #Building dbt models
       - name: Deploy & test Models (CI)
-        working-directory: ./data_modeling/
+        working-directory: data_modeling/
         env:
           DBT_PROFILES_DIR: ./
         run: |

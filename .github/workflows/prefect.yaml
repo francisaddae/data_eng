@@ -1,0 +1,10 @@
+deployments:
+  - name: Main Flow
+    description: A Flow Examples
+    entrypoint: data_flow/flow.py
+    parameters: {}
+    schedule: {}
+    work_pool:
+      job_variables:
+        image: prefecthq/prefect:3-latest
+      name: my-cicd-workflow

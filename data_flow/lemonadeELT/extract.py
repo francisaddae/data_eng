@@ -22,8 +22,12 @@ def collect_policy_table_info(gsheetid):
     policy["Canceled_Date"] = pd.to_datetime(policy["Canceled_Date"]).dt.date
     policy["Renewal_Date"] = pd.to_datetime(policy["Renewal_Date"]).dt.date
     policy["Tier"] = policy["Tier"].astype(float)
-    policy["Personal_Property_Limit"] = policy["Personal_Property_Limit"].str.replace(",", "").astype(int)
-    policy["Personal_Liability_Limit"] = policy["Personal_Liability_Limit"].str.replace(",", "").astype(int)
+    policy["Personal_Property_Limit"] = (
+        policy["Personal_Property_Limit"].str.replace(",", "").astype(int)
+    )
+    policy["Personal_Liability_Limit"] = (
+        policy["Personal_Liability_Limit"].str.replace(",", "").astype(int)
+    )
     logger.info(policy.dtypes)
     logger.info(policy.head())
     policy.columns = map(str.lower, policy.columns)
